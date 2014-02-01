@@ -1,7 +1,7 @@
-!function() {
+!function($) {
 	var eden = require('eden');
 	var unit = eden().get('unit');
-	var test = unit.extend(function($, public) {
+	var test = unit.extend(function(public) {
 		/* Public Properties
 		-------------------------------*/
 		public.TEST1 	= 'Combine with Keys';
@@ -45,13 +45,13 @@
 		-------------------------------*/
 		public.testCombineWithKeys = function() {
 			var object = this.list.combineWithKeys([10, 11, 12, 13, 14]);
-			this.assertSame(2, object[11], this.TEST1);
+			this.assertSame(2, object.get()[11], this.TEST1);
 			this.assertSame(4, object.size(), this.TEST2);
 		};
 	
 		public.testCombineWithValues = function() {
 			var object = this.list.combineWithValues([10, 11, 12, 13, 14]);
-			this.assertSame(11, object[2], this.TEST3);
+			this.assertSame(11, object.get()[2], this.TEST3);
 			this.assertSame(4, object.size(), this.TEST4);
 		};
 		
@@ -60,8 +60,8 @@
 			this.list.each(function(key, value, extra, unit) {
 				unit.assertSame('another', extra, unit.TEST5);
 				unit.assertSame('bar', this.foo, unit.TEST6);
-				unit.assertHasKey(key, list, unit.TEST7);
-				unit.assertSame(list[key], value, unit.TEST8);
+				unit.assertHasKey(key, list.get(), unit.TEST7);
+				unit.assertSame(list.get()[key], value, unit.TEST8);
 			}, scope, 'another', this);
 		};
 		
@@ -86,8 +86,8 @@
 		
 		public.testKeys = function() {
 			var keys = this.list.keys();
-			this.assertSame(1, keys[1], this.TEST15);
-			this.assertCount(4, keys, this.TEST16);
+			this.assertSame(1, keys.get()[1], this.TEST15);
+			this.assertSame(4, keys.size(), this.TEST16);
 		};
 		
 		public.testMap = function() {
@@ -95,7 +95,7 @@
 				return value + 1;
 			});
 			
-			this.assertSame(3, this.list[1], this.TEST17);
+			this.assertSame(3, this.list.get()[1], this.TEST17);
 		};
 		
 		public.testToQuery = function(prefix) {
@@ -108,8 +108,8 @@
 		
 		public.testValues = function() {
 			var values = this.list.values();
-			this.assertSame(3, values[1], this.TEST20);
-			this.assertCount(4, values, this.TEST21);
+			this.assertSame(3, values.get()[1], this.TEST20);
+			this.assertSame(4, values.size(), this.TEST21);
 		};
 		
 		/* Private Methods

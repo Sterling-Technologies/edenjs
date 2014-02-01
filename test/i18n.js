@@ -1,7 +1,7 @@
-!function() {
+!function($) {
 	var eden = require('eden');
 	var unit = eden().get('unit');
-	var test = unit.extend(function($, public) {
+	var test = unit.extend(function(public) {
 		/* Public Properties
 		-------------------------------*/
 		/* Private Properties
@@ -22,11 +22,11 @@
 				'How are you?'	: 'Kumusta Ka?',
 				'I am fine'		: 'Mabuti'};
 			
-			var translation = eden('i18n').load(tagalog).get('I am fine');
-			
+			var translation = eden('i18n').load().set(tagalog).get('I am fine');
+			console.log(translation);
 			this.assertSame('Mabuti', translation, 'Single Translation');
 			
-			var language = eden('i18n').load(tagalog).get();
+			var language = eden('i18n').load().set(tagalog).get();
 			
 			this.assertSame('Pa Alam', language['Good Bye'], 'Language Set');
 		};

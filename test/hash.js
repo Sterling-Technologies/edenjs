@@ -1,7 +1,7 @@
-!function() {
+!function($) {
 	var eden = require('eden');
 	var unit = eden().get('unit');
-	var test = unit.extend(function($, public) {
+	var test = unit.extend(function(public) {
 		/* Public Properties
 		-------------------------------*/
 		public.TEST1 	= 'Combine with Keys';
@@ -23,8 +23,8 @@
 		public.TEST17 	= 'Map';
 		public.TEST18 	= 'To Query';
 		public.TEST19 	= 'To String';
-		public.TEST20 	= 'Keys';
-		public.TEST21 	= 'Keys length';
+		public.TEST20 	= 'Values';
+		public.TEST21 	= 'Values length';
 	
 		/* Private Properties
 		-------------------------------*/
@@ -48,8 +48,8 @@
 			this.hash.each(function(key, value, extra, unit) {
 				unit.assertSame('another', extra, unit.TEST5);
 				unit.assertSame('bar', this.foo, unit.TEST6);
-				unit.assertHasKey(key, hash, unit.TEST7);
-				unit.assertSame(hash[key], value, unit.TEST8);
+				unit.assertHasKey(key, hash.get(), unit.TEST7);
+				unit.assertSame(hash.get()[key], value, unit.TEST8);
 			}, scope, 'another', this);
 		};
 		
@@ -74,8 +74,8 @@
 		
 		public.testKeys = function() {
 			var keys = this.hash.keys();
-			this.assertSame('test2', keys[1], this.TEST15);
-			this.assertCount(4, keys, this.TEST16);
+			this.assertSame('test2', keys.get()[1], this.TEST15);
+			this.assertCount(4, keys.get(), this.TEST16);
 		};
 		
 		public.testMap = function() {
@@ -87,7 +87,7 @@
 				return value + 1;
 			});
 			
-			this.assertSame(8, this.hash.test2, this.TEST17);
+			this.assertSame(8, this.hash.get().test2, this.TEST17);
 		};
 		
 		public.testToQuery = function(prefix) {
@@ -104,13 +104,13 @@
 		
 		public.testValues = function() {
 			var values = this.hash.values();
-			this.assertSame(8, values[1], this.TEST20);
-			this.assertCount(4, values, this.TEST21);
+			this.assertSame(8, values.get()[1], this.TEST20);
+			this.assertCount(4, values.get(), this.TEST21);
 		};
 		
 		/* Private Methods
 		-------------------------------*/
 	});
 	
-	unit.cli.call(test, 'array');
+	unit.cli.call(test, 'hash');
 }();

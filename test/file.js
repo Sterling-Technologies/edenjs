@@ -1,7 +1,7 @@
-!function() {
+!function($) {
 	var eden = require('eden');
 	var unit = eden().get('unit');
-	var test = unit.extend(function($, public) {
+	var test = unit.extend(function(public) {
 		/* Public Properties
 		-------------------------------*/
 		/* Private Properties
@@ -17,7 +17,7 @@
 		/* Public Methods
 		-------------------------------*/
 		public.testGetBase = function() {
-			var base = eden('file', __dirname+'/assets/file/index.html').getBase();
+			var base = eden('file').load(__dirname+'/assets/file/index.html').getBase();
 			this.assertSame('index', base, 'Base Test');
 		};
 		

@@ -1,7 +1,7 @@
-!function() {
+!function($) {
 	var eden = require('eden');
 	var unit = eden().get('unit');
-	var test = unit.extend(function($, public) {
+	var test = unit.extend(function(public) {
 		/* Public Properties
 		-------------------------------*/
 		public.TEST = 'Testing Templating Engine';
