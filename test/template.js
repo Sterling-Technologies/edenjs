@@ -22,7 +22,7 @@
 			var template = '<h1>{store/}</h1>\n<h2>{$slogan}</h2>\n{products}\n<h3>'
 			+'{title/}</h3>\n{detail}\n<p>{description/}</p>\n{/detail}\n{/products}';
 			
-			var output = eden('template')
+			var output = eden('template').load()
 				.setData({
 					store: 'STORE TITLE',
 					products: [

@@ -102,7 +102,7 @@
 		};
 		
 		public.testJsonToObject = function() {
-			this.assertSame(4, eden('{"test1":4}').jsonToObject().get().test1, this.TEST12);
+			this.assertSame(4, eden('{"test1":4}').jsonToHash().get().test1, this.TEST12);
 		};
 		
 		public.testLastIndexOf = function() {
@@ -151,7 +151,7 @@
 		
 		public.testQueryToObject = function() {
 			this.assertSame(6, 
-				eden('test1=4&test2=6').queryToObject().get().test2, 
+				eden('test1=4&test2=6').queryToHash().get().test2, 
 				this.TEST20);
 		};
 		
@@ -227,12 +227,12 @@
 			this.assertSame('this is sparta', eden('This Is Sparta').toLowerCase().get(), this.TEST32);
 		};
 		
-		public.testToObject = function() {
+		public.testToHash = function() {
 			this.assertSame(6, 
-				eden('test1=4&test2=6').toObject().get().test2, 
+				eden('test1=4&test2=6').toHash().get().test2, 
 				this.TEST33);
 			
-			this.assertSame(4, eden('{"test1":4}').toObject().get().test1, this.TEST34);
+			this.assertSame(4, eden('{"test1":4}').toHash().get().test1, this.TEST34);
 		};
 		
 		public.testToPath = function() {
