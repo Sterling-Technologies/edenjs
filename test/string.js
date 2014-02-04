@@ -44,7 +44,19 @@
 		public.TEST38 	= 'UC First';
 		public.TEST39 	= 'UC Words';
 		public.TEST40 	= 'Uncamelize';
-		
+		public.TEST41   = 'Base 64 Decode';
+		public.TEST42   = 'Ends With';
+		public.TEST43	= 'Equals';
+		public.TEST44	= 'Is Empty';
+		public.TEST45	= 'Starts With';
+		public.TEST46	= 'Size';
+		public.TEST47	= 'Url Decode';
+		public.TEST48	= 'Utf Encode';
+		public.TEST49	= 'Base64 Encode';
+		public.TEST50	= 'Str To Upper';
+		public.TEST51	= 'Hmac';
+		public.TEST52	= 'Has';
+
 		/* Private Properties
 		-------------------------------*/
 		/* Loader
@@ -59,6 +71,14 @@
 		-------------------------------*/
 		public.testAddSlashes = function() {
 			this.assertSame("I can\\'t wait", eden("I can't wait").addSlashes(), this.TEST1);
+		};
+
+		public.testBase64Decode = function() {
+			this.assertSame('test', eden('dGVzdA==').base64Decode().get(), this.TEST41);
+		};
+
+		public.testBase64Encode = function() {
+			this.assertSame('dGVzdA==', eden('test').base64Encode().get(), this.TEST49);
 		};
 		
 		public.testCamelize = function() {
@@ -84,12 +104,31 @@
 			this.assertSame('this-is-sparta', eden('This Is Sparta!').dasherize(), this.TEST6);
 		};
 		
+		public.testEndsWith = function() {
+			this.assertTrue(true, 
+				eden( 'To be or not to be that is the question').endsWith('question'), 
+				this.TEST42);
+		};
+
+		public.testEquals = function() {
+			this.assertTrue(true, eden('brown fox').equals('brown fox'), this.TEST43);
+		};
+
+		public.testHmac = function() {
+			this.assertSame('6455fdb217cfe086953a844dabac0491b05d91d2', 
+				eden('test').hmac('1234', 'sha1', 'hex').get(), this.TEST51);
+		};
+
 		public.testHtmlEntities = function() {
 			this.assertSame('4 &lt; 6 &amp; 5', eden('4 < 6 & 5').htmlEntities(), this.TEST7);
 		};
 		
 		public.testHtmlEntityDecode = function() {
 			this.assertSame('4 < 6 & 5', eden('4 &lt; 6 &amp; 5').htmlEntityDecode(), this.TEST8);
+		};
+
+		public.testIsEmpty = function() {
+			this.assertTrue(true, eden("").isEmpty(), this.TEST44);
 		};
 		
 		public.testIndexOf = function() {
@@ -169,6 +208,10 @@
 				eden('test').sha1().get(), 
 				this.TEST22);
 		};
+
+		public.testSize = function() {
+			this.assertSame(5, eden('qwert').size(), this.TEST46);
+		};
 		
 		public.testSearch = function() {
 			this.assertSame(7, eden('You cant find me').search('t'), this.TEST23);
@@ -186,9 +229,17 @@
 				eden('The rain in SPAIN stays mainly in the plain').split('ain').get(), 
 				this.TEST25);
 		};
+
+		public.testStartsWith = function() {
+			this.assertTrue(true, eden('Hello').startsWith('He'), this.TEST45);
+		};
 		
 		public.testStripSlashes = function() {
 			this.assertSame("I can't wait", eden("I can\\'t wait").stripSlashes(), this.TEST26);
+		};
+
+		public.testStrToUpper = function() {
+			this.assertSame('THIS MUST BE IN UPPERCASE', eden('this must be in uppercase').strToUpper().get(), this.TEST50);
 		};
 		
 		public.testSubstr = function() {
@@ -260,7 +311,22 @@
 		public.testUncamelize = function() {
 			this.assertSame('this-is-sparta', eden('thisIsSparta').uncamelize(), this.TEST40);
 		};
+
+		public.testUrlDecode = function() {
+			this.assertSame('my test.asp?name=ståle&car=saab', 
+				eden('my%20test.asp?name=st%C3%A5le&car=saab').urlDecode().get(), 
+				this.TEST47);
+		};
+
+		public.testUtf8Encode = function() {
+			this.assertSame('Kevin van Zonneveld', 
+				eden('Kevin van Zonneveld').utf8Encode().get(), 
+				this.TEST48);
+		};
 		
+		public.testHas = function() {
+			this.assertTrue(eden('thisIsSparta').has('isIs'), this.TEST52);
+		};
 		/* Private Methods
 		-------------------------------*/
 	});

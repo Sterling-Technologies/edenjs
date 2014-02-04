@@ -45,6 +45,7 @@
 		public.TEST39 	= 'Square Root';
 		public.TEST40 	= 'Tan';
 		public.TEST41 	= 'Times';
+		public.TEST42	= 'To String';
 		
 		/* Private Properties
 		-------------------------------*/
@@ -63,15 +64,15 @@
 		};
 		
 		public.testAcos = function() {
-			this.assertEquals(1.0471975511965976, eden(0.5).acos().get(), this.TEST2);	
+			this.assertEquals(1.2661036727794992, eden(0.3).acos().get(), this.TEST2);	
 		};
 		
 		public.testAsin = function() {
-			this.assertEquals(0.5235987755982988, eden(0.5).asin().get(), this.TEST3);	
+			this.assertEquals(0.3046926540153975, eden(0.3).asin().get(), this.TEST3);	
 		};
 		
 		public.testAtan = function() {
-			this.assertEquals(1.1071487177940906, eden(2).atan().get(), this.TEST4);	
+			this.assertEquals(1.5707962121596615, eden(8723321.4).atan().get(), this.TEST4);	
 		};
 		
 	 	public.testBetween = function () {
@@ -192,6 +193,10 @@
 			this.assertEquals(32, eden(8).times(4).get(), this.TEST41);	
 		};
 		
+		public.testToString = function() {
+			this.assertEquals('15', eden(15).toString(), this.TEST42);
+		};
+
 		/* Private Methods
 		-------------------------------*/
 	});

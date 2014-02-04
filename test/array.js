@@ -112,6 +112,11 @@
 			this.assertSame(4, values.size(), this.TEST21);
 		};
 		
+		
+		public.testConcat = function() {
+			this.list.concat([1,2,3,4]);
+			this.assertCount(8,this.list.get(),'dasd');
+		};
 		/* Private Methods
 		-------------------------------*/
 	});

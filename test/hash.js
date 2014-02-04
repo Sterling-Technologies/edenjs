@@ -25,6 +25,7 @@
 		public.TEST19 	= 'To String';
 		public.TEST20 	= 'Values';
 		public.TEST21 	= 'Values length';
+		public.TEST22	= 'Implode';
 	
 		/* Private Properties
 		-------------------------------*/
@@ -106,6 +107,11 @@
 			var values = this.hash.values();
 			this.assertSame(8, values.get()[1], this.TEST20);
 			this.assertCount(4, values.get(), this.TEST21);
+		};
+
+		public.testImplode = function() {
+			var result = eden({test1:4,test2:6}).implode('-').get();
+			this.assertSame('4-6', result, this.TEST22);
 		};
 		
 		/* Private Methods
