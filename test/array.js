@@ -25,6 +25,14 @@
 		public.TEST19 	= 'To String';
 		public.TEST20 	= 'Keys';
 		public.TEST21 	= 'Keys length';
+		public.TEST22	= 'Concat';
+		public.TEST23	= 'Unshift';
+		public.TEST24	= 'Slice';
+		public.TEST25	= 'Sort';
+		public.TEST26	= 'Implode';
+		public.TEST27	= 'Pop';
+		public.TEST28	= 'Push';
+
 	
 		/* Private Properties
 		-------------------------------*/
@@ -115,8 +123,45 @@
 		
 		public.testConcat = function() {
 			this.list.concat([1,2,3,4]);
+<<<<<<< HEAD
 			this.assertCount(8,this.list.get(),'dasd');
 		};
+=======
+			this.assertCount(8,this.list.get(), this.TEST22);
+		};
+
+		public.testUnshift = function() {
+			this.list.unshift([1,2,3,4,5]);
+			this.assertCount(9,this.list.get(), this.TEST23);
+		};
+
+		public.testSlice = function() {
+			var result = eden([1,2,3,4]).slice(2).get();
+			this.assertSame('3,4', result, this.TEST24);
+		};
+
+		public.testSort = function() {
+			var result = eden(['a','c','b']).sort().get();
+			this.assertSame('a,b,c', result, this.TEST25);
+		};
+
+		public.testImplode = function() {
+			var result = eden(['z','x','c']).implode('-').get();
+			this.assertSame('z-x-c', result, this.TEST26);
+		};
+
+		public.testPop = function() {
+			var result = eden([1,2,3,4]).pop();
+			this.assertSame(4, result, this.TEST27);
+		};
+
+		public.testPush = function() {
+			var result = eden([1,2,3,4]).push('5,6').get();
+			this.assertSame('1,2,3,4,5,6', result, this.TEST28);
+		};
+
+
+>>>>>>> unit test
 		/* Private Methods
 		-------------------------------*/
 	});

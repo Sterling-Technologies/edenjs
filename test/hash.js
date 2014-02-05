@@ -26,6 +26,14 @@
 		public.TEST20 	= 'Values';
 		public.TEST21 	= 'Values length';
 		public.TEST22	= 'Implode';
+<<<<<<< HEAD
+=======
+		public.TEST23	= 'Ksort';
+		public.TEST24	= 'natksort';
+		public.TEST25	= 'Set';
+		public.TEST26	= 'Size';
+		public.TEST27	= 'Sort';
+>>>>>>> unit test
 	
 		/* Private Properties
 		-------------------------------*/
@@ -113,7 +121,44 @@
 			var result = eden({test1:4,test2:6}).implode('-').get();
 			this.assertSame('4-6', result, this.TEST22);
 		};
+<<<<<<< HEAD
 		
+=======
+
+		public.testKsort = function() {
+			var result = eden({test3:9,test2:7,test1:6}).ksort().get();
+			result = eden(result).implode('-').get();
+			var test = eden({test1:6,test2:7, test3:9}).implode('-').get();
+			this.assertSame(test, result, this.TEST23);
+		};
+
+		public.testNatksort = function() {
+			var result = eden({test2:9,test1:7}).natksort().get();
+			result = eden(result).implode('-').get();
+			var test = eden({test1:7, test2:9}).implode('-').get();
+			this.assertSame(test, result, this.TEST24);
+		}; 
+
+		public.testSet = function() {
+			var result = eden({}).set('test', '1').get();
+			result = eden(result).implode('-').get();
+			var test = eden({test:1}).implode('-').get();
+			this.assertSame(test, result, this.TEST25);
+		}
+
+		public.testSize = function() {
+			var result = eden({test1:1,test:2}).size();
+			this.assertSame('2', result, this.TEST26);
+		};
+
+		public.testSort = function() {
+			var result = eden({test3:3,test2:2,test1:1}).sort().get();
+			result = eden(result).implode('-').get();
+			var test = eden({test1:1,test2:2,test3:3}).implode('-').get();
+			this.assertSame(test, result, this.TEST27);
+		};
+
+>>>>>>> unit test
 		/* Private Methods
 		-------------------------------*/
 	});
