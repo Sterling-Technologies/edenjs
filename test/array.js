@@ -123,10 +123,6 @@
 		
 		public.testConcat = function() {
 			this.list.concat([1,2,3,4]);
-<<<<<<< HEAD
-			this.assertCount(8,this.list.get(),'dasd');
-		};
-=======
 			this.assertCount(8,this.list.get(), this.TEST22);
 		};
 
@@ -161,7 +157,6 @@
 		};
 
 
->>>>>>> unit test
 		/* Private Methods
 		-------------------------------*/
 	});

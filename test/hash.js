@@ -26,14 +26,11 @@
 		public.TEST20 	= 'Values';
 		public.TEST21 	= 'Values length';
 		public.TEST22	= 'Implode';
-<<<<<<< HEAD
-=======
 		public.TEST23	= 'Ksort';
 		public.TEST24	= 'natksort';
 		public.TEST25	= 'Set';
 		public.TEST26	= 'Size';
 		public.TEST27	= 'Sort';
->>>>>>> unit test
 	
 		/* Private Properties
 		-------------------------------*/
@@ -121,9 +118,6 @@
 			var result = eden({test1:4,test2:6}).implode('-').get();
 			this.assertSame('4-6', result, this.TEST22);
 		};
-<<<<<<< HEAD
-		
-=======
 
 		public.testKsort = function() {
 			var result = eden({test3:9,test2:7,test1:6}).ksort().get();
@@ -158,7 +152,6 @@
 			this.assertSame(test, result, this.TEST27);
 		};
 
->>>>>>> unit test
 		/* Private Methods
 		-------------------------------*/
 	});
