@@ -1,5 +1,5 @@
 !function($) {
-	var eden = require('eden');
+	var eden = require('../lib/index.js');
 	var unit = eden().get('unit');
 	var test = unit.extend(function(public) {
 		/* Public Properties
@@ -18,11 +18,11 @@
 		-------------------------------*/
 		/* Public Methods
 		-------------------------------*/
-		public.testTemplate = function() {
+		public.testTemplate = function(next) {
 			var template = '<h1>{store/}</h1>\n<h2>{$slogan}</h2>\n{products}\n<h3>'
 			+'{title/}</h3>\n{detail}\n<p>{description/}</p>\n{/detail}\n{/products}';
 			
-			var output = eden('template').load()
+			var output = eden('template')
 				.setData({
 					store: 'STORE TITLE',
 					products: [
@@ -46,6 +46,8 @@
 			+'\n\n<p>Something about this Product</p>\n\n';
 			
 			this.assertSame(output, same, this.TEST);
+			
+			next();
 		};
 		
 		/* Private Methods

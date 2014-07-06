@@ -1,5 +1,5 @@
 !function($) {
-	var eden = require('eden');
+	var eden = require('../lib/index.js');
 	var unit = eden().get('unit');
 	var test = unit.extend(function(public) {
 		/* Public Properties
@@ -69,264 +69,363 @@
 		-------------------------------*/
 		/* Public Methods
 		-------------------------------*/
-		public.testAddSlashes = function() {
-			this.assertSame("I can\\'t wait", eden("I can't wait").addSlashes(), this.TEST1);
-		};
-
-		public.testBase64Decode = function() {
-			this.assertSame('test', eden('dGVzdA==').base64Decode().get(), this.TEST41);
-		};
-
-		public.testBase64Encode = function() {
-			this.assertSame('dGVzdA==', eden('test').base64Encode().get(), this.TEST49);
+		public.testAddSlashes = function(next) {
+			this.assertSame("I can\\'t wait", eden('string').addSlashes("I can't wait"), this.TEST1);
+			
+			next();
 		};
 		
-		public.testCamelize = function() {
-			this.assertSame('thisIsSparta', eden('this-is-sparta').camelize(), this.TEST2);
+		public.testBase64Decode = function(next) {
+			this.assertSame('test', eden('string').base64Decode('dGVzdA=='), this.TEST41);
+			
+			next();
 		};
 		
-		public.testCharAt = function() {
-			this.assertSame('t', eden('You cant find me').charAt(7), this.TEST3);
+		public.testBase64Encode = function(next) {
+			this.assertSame('dGVzdA==', eden('string').base64Encode('test'), this.TEST49);
+			
+			next();
 		};
 		
-		public.testCharCodeAt = function() {
-			this.assertSame(116, eden('You cant find me').charCodeAt(7), this.TEST4);
+		public.testCamelize = function(next) {
+			this.assertSame('thisIsSparta', eden('string').camelize('this-is-sparta'), this.TEST2);
+			
+			next();
 		};
 		
-		public.testConcat = function() {
+		public.testCharAt = function(next) {
+			this.assertSame('t', eden('string').charAt('You cant find me', 7), this.TEST3);
+			
+			next();
+		};
+		
+		public.testCharCodeAt = function(next) {
+			this.assertSame(116, eden('string').charCodeAt('You cant find me', 7), this.TEST4);
+			
+			next();
+		};
+		
+		public.testConcat = function(next) {
 			this.assertSame(
 				'You cant find meYes I can', 
-				eden('You cant find me').concat('Yes I can').get(), 
+				eden('string').concat('You cant find me', 'Yes I can'), 
 				this.TEST5);
+			
+			next();
 		};
 		
-		public.testDasherize = function() {
-			this.assertSame('this-is-sparta', eden('This Is Sparta!').dasherize(), this.TEST6);
+		public.testDasherize = function(next) {
+			this.assertSame('this-is-sparta', eden('string').dasherize('This Is Sparta!'), this.TEST6);
+			
+			next();
 		};
 		
-		public.testEndsWith = function() {
+		public.testEndsWith = function(next) {
 			this.assertTrue(true, 
-				eden( 'To be or not to be that is the question').endsWith('question'), 
+				eden('string').endsWith('To be or not to be that is the question', 'question'), 
 				this.TEST42);
+			
+			next();
 		};
-
-		public.testEquals = function() {
-			this.assertTrue(true, eden('brown fox').equals('brown fox'), this.TEST43);
+		
+		public.testEquals = function(next) {
+			this.assertTrue(true, eden('string').equals('brown fox', 'brown fox'), this.TEST43);
+			
+			next();
 		};
-
-		public.testHmac = function() {
+		
+		public.testHmac = function(next) {
 			this.assertSame('6455fdb217cfe086953a844dabac0491b05d91d2', 
-				eden('test').hmac('1234', 'sha1', 'hex').get(), this.TEST51);
-		};
-
-		public.testHtmlEntities = function() {
-			this.assertSame('4 &lt; 6 &amp; 5', eden('4 < 6 & 5').htmlEntities(), this.TEST7);
+				eden('string').hmac('test', '1234', 'sha1', 'hex'), this.TEST51);
+			
+			next();
 		};
 		
-		public.testHtmlEntityDecode = function() {
-			this.assertSame('4 < 6 & 5', eden('4 &lt; 6 &amp; 5').htmlEntityDecode(), this.TEST8);
-		};
-
-		public.testIsEmpty = function() {
-			this.assertTrue(true, eden("").isEmpty(), this.TEST44);
+		public.testHtmlEntities = function(next) {
+			this.assertSame('4 &lt; 6 &amp; 5', eden('string').htmlEntities('4 < 6 & 5'), this.TEST7);
+			
+			next();
 		};
 		
-		public.testIndexOf = function() {
-			this.assertSame(7, eden('You cant find me').indexOf('t'), this.TEST9);
+		public.testHtmlEntityDecode = function(next) {
+			this.assertSame('4 < 6 & 5', eden('string').htmlEntityDecode('4 &lt; 6 &amp; 5'), this.TEST8);
+			
+			next();
 		};
 		
-		public.testIsJson = function() {
-			this.assertTrue(eden('{"test1":4}').isJson(), this.TEST10);
-			this.assertFalse(eden('{test1:4}').isJson(), this.TEST11);
+		public.testIsEmpty = function(next) {
+			this.assertTrue(true, eden('string').isEmpty(""), this.TEST44);
+			
+			next();
 		};
 		
-		public.testJsonToObject = function() {
-			this.assertSame(4, eden('{"test1":4}').jsonToHash().get().test1, this.TEST12);
+		public.testIndexOf = function(next) {
+			this.assertSame(7, eden('string').indexOf('You cant find me', 't'), this.TEST9);
+			
+			next();
 		};
 		
-		public.testLastIndexOf = function() {
-			this.assertSame(11, eden('You cant find me').lastIndexOf('n'), this.TEST13);
+		public.testIsJson = function(next) {
+			this.assertTrue(eden('string').isJson('{"test1":4}'), this.TEST10);
+			this.assertFalse(eden('string').isJson('{test1:4}'), this.TEST11);
+			
+			next();
 		};
 		
-		public.testLcFirst = function() {
+		public.testJsonToObject = function(next) {
+			this.assertSame(4, eden('string').jsonToHash('{"test1":4}').test1, this.TEST12);
+			
+			next();
+		};
+		
+		public.testLastIndexOf = function(next) {
+			this.assertSame(11, eden('string').lastIndexOf('You cant find me', 'n'), this.TEST13);
+			
+			next();
+		};
+		
+		public.testLcFirst = function(next) {
 			this.assertSame(
 				'tHIS IS SPARTA', 
-				eden('THIS IS SPARTA').lcFirst().get(), 
+				eden('string').lcFirst('THIS IS SPARTA'), 
 				this.TEST14);
+			
+			next();
 		};
 		
-		public.testNl2br = function() {
+		public.testNl2br = function(next) {
 			this.assertSame(
 				'THIS<br />IS<br />SPARTA', 
-				eden("THIS\nIS\nSPARTA").nl2br().get(), 
+				eden('string').nl2br("THIS\nIS\nSPARTA"), 
 				this.TEST15);
+			
+			next();
 		};
 		
-		public.testMatch = function() {
+		public.testMatch = function(next) {
 			this.assertSame(
 				'ain,ain,ain', 
-				eden('The rain in SPAIN stays mainly in the plain').match(/ain/g).get(), 
+				eden('string').match('The rain in SPAIN stays mainly in the plain', /ain/g), 
 				this.TEST16);
+			
+			next();
 		};
 		
-		public.testMd5 = function() {
+		public.testMd5 = function(next) {
 			this.assertSame(
 				'098f6bcd4621d373cade4e832627b4f6', 
-				eden('test').md5().get(), 
+				eden('string').md5('test'), 
 				this.TEST17);
+			
+			next();
 		};
 		
-		public.testPathToArray = function() {
+		public.testPathToArray = function(next) {
 			this.assertSame(4, 
-				eden('/some/path/to/file').pathToArray().get().length, 
+				eden('string').pathToArray('/some/path/to/file').length, 
 				this.TEST18);
+			
+			next();
 		};
 		
-		public.testPathToQuery = function() {
+		public.testPathToQuery = function(next) {
 			this.assertSame(4, 
-				eden('/some/path/to/file?test1=4').pathToQuery().get().test1, 
+				eden('string').pathToQuery('/some/path/to/file?test1=4').test1, 
 				this.TEST19);
+			
+			next();
 		};
 		
-		public.testQueryToObject = function() {
+		public.testQueryToObject = function(next) {
 			this.assertSame(6, 
-				eden('test1=4&test2=6').queryToHash().get().test2, 
+				eden('string').queryToHash('test1=4&test2=6').test2, 
 				this.TEST20);
+			
+			next();
 		};
 		
-		public.testReplace = function() {
+		public.testReplace = function(next) {
 			this.assertSame('Thas as Sparta', 
-				eden('This is $parta')
-				.replace('i', 'a')
-				.replace('$', 'S').get(), 
+				eden('string').replace('This is Sparta', 'i', 'a'), 
 				this.TEST21);
+			
+			next();
 		};
 		
-		public.testSha1 = function() {
+		public.testSha1 = function(next) {
 			this.assertSame(
 				'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 
-				eden('test').sha1().get(), 
+				eden('string').sha1('test'), 
 				this.TEST22);
-		};
-
-		public.testSize = function() {
-			this.assertSame(5, eden('qwert').size(), this.TEST46);
+			
+			next();
 		};
 		
-		public.testSearch = function() {
-			this.assertSame(7, eden('You cant find me').search('t'), this.TEST23);
+		public.testSize = function(next) {
+			this.assertSame(5, eden('string').size('qwert'), this.TEST46);
+			
+			next();
 		};
 		
-		public.testSlice = function() {
+		public.testSearch = function(next) {
+			this.assertSame(7, eden('string').search('You cant find me', 't'), this.TEST23);
+			
+			next();
+		};
+		
+		public.testSlice = function(next) {
 			this.assertSame(
 				'n SPA', 
-				eden('The rain in SPAIN stays mainly in the plain').slice(10, 15).get(), 
+				eden('string').slice('The rain in SPAIN stays mainly in the plain', 10, 15), 
 				this.TEST24);
+			
+			next();
 		};
 		
-		public.testSplit = function() {
+		public.testSplit = function(next) {
 			this.assertCount(4, 
-				eden('The rain in SPAIN stays mainly in the plain').split('ain').get(), 
+				eden('string').split('The rain in SPAIN stays mainly in the plain', 'ain'), 
 				this.TEST25);
-		};
-
-		public.testStartsWith = function() {
-			this.assertTrue(true, eden('Hello').startsWith('He'), this.TEST45);
+			
+			next();
 		};
 		
-		public.testStripSlashes = function() {
-			this.assertSame("I can't wait", eden("I can\\'t wait").stripSlashes(), this.TEST26);
-		};
-
-		public.testStrToUpper = function() {
-			this.assertSame('THIS MUST BE IN UPPERCASE', eden('this must be in uppercase').strToUpper().get(), this.TEST50);
+		public.testStartsWith = function(next) {
+			this.assertTrue(true, eden('string').startsWith('Hello', 'He'), this.TEST45);
+			
+			next();
 		};
 		
-		public.testSubstr = function() {
+		public.testStripSlashes = function(next) {
+			this.assertSame("I can't wait", eden('string').stripSlashes("I can\\'t wait"), this.TEST26);
+			
+			next();
+		};
+		
+		public.testStrToUpper = function(next) {
+			this.assertSame('THIS MUST BE IN UPPERCASE', eden('string').strToUpper('this must be in uppercase'), this.TEST50);
+			
+			next();
+		};
+		
+		public.testSubstr = function(next) {
 			this.assertSame(
 				'n SPA', 
-				eden('The rain in SPAIN stays mainly in the plain').substr(10, 5).get(), 
+				eden('string').substr('The rain in SPAIN stays mainly in the plain', 10, 5), 
 				this.TEST27);
+			
+			next();
 		};
 		
-		public.testSubstring = function() {
+		public.testSubstring = function(next) {
 			this.assertSame(
 				'ain i', 
-				eden('The rain in SPAIN stays mainly in the plain').substring(10, 5).get(), 
+				eden('string').substring('The rain in SPAIN stays mainly in the plain', 10, 5), 
 				this.TEST28);
+			
+			next();
 		};
 		
-		public.testStripTags = function() {
+		public.testStripTags = function(next) {
 			this.assertSame(
 				'THISISSPARTA', 
-				eden("THIS<br />IS<br />SPARTA").stripTags().get(), 
+				eden('string').stripTags("THIS<br />IS<br />SPARTA"), 
 				this.TEST29);
+			
+			next();
 		};
 		
-		public.testSummarize = function() {
+		public.testSummarize = function(next) {
 			this.assertSame(
 				'The rain in SPAIN', 
-				eden('The rain in SPAIN stays mainly in the plain').summarize(4).get(), 
+				eden('string').summarize('The rain in SPAIN stays mainly in the plain', 4), 
 				this.TEST30);
+			
+			next();
 		};
 		
-		public.testTitlize = function() {
-			this.assertSame('This Is Sparta', eden('this-is-sparta').titlize(), this.TEST31);
+		public.testTitlize = function(next) {
+			this.assertSame('This Is Sparta', eden('string').titlize('this-is-sparta'), this.TEST31);
+			
+			next();
 		};
 		
-		public.testToLowerCase = function() {
-			this.assertSame('this is sparta', eden('This Is Sparta').toLowerCase().get(), this.TEST32);
+		public.testToLowerCase = function(next) {
+			this.assertSame('this is sparta', eden('string').toLowerCase('This Is Sparta'), this.TEST32);
+			
+			next();
 		};
 		
-		public.testToHash = function() {
+		public.testToHash = function(next) {
 			this.assertSame(6, 
-				eden('test1=4&test2=6').toHash().get().test2, 
+				eden('string').toHash('test1=4&test2=6').test2, 
 				this.TEST33);
 			
-			this.assertSame(4, eden('{"test1":4}').toHash().get().test1, this.TEST34);
+			this.assertSame(4, eden('string').toHash('{"test1":4}').test1, this.TEST34);
+			
+			next();
 		};
 		
-		public.testToPath = function() {
+		public.testToPath = function(next) {
 			this.assertSame('/some/path/to/file', 
-				eden('some/path//to/file/').toPath().get(), 
+				eden('string').toPath('some/path//to/file/'), 
 				this.TEST35);
+			
+			next();
 		};
 		
-		public.testToUpperCase = function() {
-			this.assertSame('THIS IS SPARTA', eden('This Is Sparta').toUpperCase().get(), this.TEST36);
+		public.testToUpperCase = function(next) {
+			this.assertSame('THIS IS SPARTA', eden('string').toUpperCase('This Is Sparta'), this.TEST36);
+			
+			next();
 		};
 		
-		public.testTrim = function() {
-			this.assertSame('This Is Sparta', eden('   This Is Sparta  ').trim().get(), this.TEST37);
+		public.testTrim = function(next) {
+			this.assertSame('This Is Sparta', eden('string').trim('   This Is Sparta  '), this.TEST37);
+			
+			next();
 		};
 		
-		public.testUcFirst = function() {
-			this.assertSame('This is sparta', eden('this is sparta').ucFirst().get(), this.TEST38);
+		public.testUcFirst = function(next) {
+			this.assertSame('This is sparta', eden('string').ucFirst('this is sparta'), this.TEST38);
+			
+			next();
 		};
 		
-		public.testUcWords = function() {
-			this.assertSame('This Is Sparta', eden('this is sparta').ucWords().get(), this.TEST39);
+		public.testUcWords = function(next) {
+			this.assertSame('This Is Sparta', eden('string').ucWords('this is sparta'), this.TEST39);
+			
+			next();
 		};
 		
-		public.testUncamelize = function() {
-			this.assertSame('this-is-sparta', eden('thisIsSparta').uncamelize(), this.TEST40);
+		public.testUncamelize = function(next) {
+			this.assertSame('this-is-sparta', eden('string').uncamelize('thisIsSparta'), this.TEST40);
+			
+			next();
 		};
-
-		public.testUrlDecode = function() {
+		
+		public.testUrlDecode = function(next) {
 			this.assertSame('my test.asp?name=ståle&car=saab', 
-				eden('my%20test.asp?name=st%C3%A5le&car=saab').urlDecode().get(), 
+				eden('string').urlDecode('my%20test.asp?name=st%C3%A5le&car=saab'), 
 				this.TEST47);
-		};
-
-		public.testUtf8Encode = function() {
-			this.assertSame('Kevin van Zonneveld', 
-				eden('Kevin van Zonneveld').utf8Encode().get(), 
-				this.TEST48);
+			
+			next();
 		};
 		
-		public.testHas = function() {
-			this.assertTrue(eden('thisIsSparta').has('isIs'), this.TEST52);
+		public.testUtf8Encode = function(next) {
+			this.assertSame('Kevin van Zonneveld', 
+				eden('string').utf8Encode('Kevin van Zonneveld'), 
+				this.TEST48);
+			
+			next();
 		};
+		
+		public.testHas = function(next) {
+			this.assertTrue(eden('string').has('thisIsSparta', 'isIs'), this.TEST52);
+			
+			next();
+		};
+		
 		/* Private Methods
 		-------------------------------*/
 	});

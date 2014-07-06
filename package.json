@@ -1,25 +1,36 @@
 {
-  "name": "eden",
-  "description": "Eden Node JS Library",
+  "name": "edenjs",
+  "description": "A Helper Library",
   "version": "0.0.1",
+  "license": "MIT",
   "author": {
     "name": "Christian Blanquera",
     "email": "cblanquera@openovate.com"
   },
   "keywords": [
-    "framework",
-    "eden"
+    "library",
+	"helper",
+    "eden",
+	"edenjs"
   ],
+  "dependencies": {
+    "formidable": "1.0.15",
+    "socket.io": "0.9.16"
+  },
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/cblanquera/edennode.git"
+    "url": "https://github.com/Openovate/edenjs.git"
   },
   "scripts": {
-    "test": "mocha --require should --reporter spec"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://github.com/Openovate/edenjs",
   "readme": "",
   "readmeFilename": "Readme.md",
+  "bugs": {
+    "url": "https://github.com/Openovate/edenjs/issues"
+  },
   "_id": "eden@0.0.1",
   "dist": {
     "shasum": "670e73d348d0ec380ed343488fe83c71986fd2c6"

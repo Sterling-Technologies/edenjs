@@ -1,5 +1,5 @@
 !function($) {
-	var eden = require('eden');
+	var eden = require('../lib/index.js');
 	var unit = eden().get('unit');
 	var test = unit.extend(function(public) {
 		/* Public Properties
@@ -32,13 +32,14 @@
 		public.TEST26	= 'Implode';
 		public.TEST27	= 'Pop';
 		public.TEST28	= 'Push';
+		public.TEST29	= 'Reverse';
+		public.TEST30	= 'Splice';
 
-	
 		/* Private Properties
 		-------------------------------*/
 		/* Loader
 		-------------------------------*/
-		public.__load = function() {
+		public.__load = function(next) {
 			return new this();
 		};
 		
@@ -46,114 +47,151 @@
 		-------------------------------*/
 		public.__construct = function() {
 			this.__parent.__construct();
-			this.list = eden([1,2,3,4]);
 		};
 		
 		/* Public Methods
 		-------------------------------*/
-		public.testCombineWithKeys = function() {
-			var object = this.list.combineWithKeys([10, 11, 12, 13, 14]);
-			this.assertSame(2, object.get()[11], this.TEST1);
-			this.assertSame(4, object.size(), this.TEST2);
-		};
-	
-		public.testCombineWithValues = function() {
-			var object = this.list.combineWithValues([10, 11, 12, 13, 14]);
-			this.assertSame(11, object.get()[2], this.TEST3);
-			this.assertSame(4, object.size(), this.TEST4);
+		public.testCombine = function(next) {
+			var keys = ['key2', 'key3','key1', 'key5'], values = [1, 2, 3, 4], 
+			object = eden('array').combine(keys, values);
+			
+			this.assertSame(3, object.key1, this.TEST2);
+			
+			next();
 		};
 		
-		public.testEach = function() {
-			var list = this.list, scope = { foo: 'bar' };
-			this.list.each(function(key, value, extra, unit) {
-				unit.assertSame('another', extra, unit.TEST5);
-				unit.assertSame('bar', this.foo, unit.TEST6);
-				unit.assertHasKey(key, list.get(), unit.TEST7);
-				unit.assertSame(list.get()[key], value, unit.TEST8);
-			}, scope, 'another', this);
+		public.testEach = function(next) {
+			var list = [3, 4, 5, 6], self = this;
+			eden('array').each(list, function(key, value) {
+				self.assertHasKey(key, list, self.TEST7);
+				self.assertSame(list[key], value, self.TEST8);
+			});
+			
+			next();
 		};
 		
-		public.testGet = function() {
-			var list = this.list.get();
-			this.assertCount(4, list, this.TEST9);
-			this.assertSame(3, list[2], this.TEST10);
+		public.testHas = function(next) {
+			var list = [3, 4, 5, 6];
+			this.assertTrue(eden('array').has(list, 3), this.TEST12);
+			this.assertFalse(eden('array').has(list, 7), this.TEST13);
+			
+			next();
 		};
 		
-		public.testGetType = function() {
-			this.assertSame('array', this.list.getType(), this.TEST11);
+		public.testIsEmpty = function(next) {
+			var list = [3, 4, 5, 6];
+			this.assertFalse(eden('array').isEmpty(list), this.TEST14);
+			
+			next();
 		};
 		
-		public.testHas = function() {
-			this.assertTrue(this.list.has(3), this.TEST12);
-			this.assertFalse(this.list.has(5), this.TEST13);
+		public.testKeys = function(next) {
+			var list = [3, 4, 5, 6], keys = eden('array').keys(list);
+			this.assertSame(4, eden('array').size(keys), this.TEST16);
+			
+			next();
 		};
 		
-		public.testIsEmpty = function() {
-			this.assertFalse(this.list.isEmpty(), this.TEST14);
-		};
-		
-		public.testKeys = function() {
-			var keys = this.list.keys();
-			this.assertSame(1, keys.get()[1], this.TEST15);
-			this.assertSame(4, keys.size(), this.TEST16);
-		};
-		
-		public.testMap = function() {
-			this.list.map(function(key, value) {
+		public.testMap = function(next) {
+			var list = [3, 4, 5, 6];
+			eden('array').map(list, function(key, value) {
 				return value + 1;
 			});
 			
-			this.assertSame(3, this.list.get()[1], this.TEST17);
+			this.assertSame(5, list[1], this.TEST17);
+			
+			next();
 		};
 		
-		public.testToQuery = function(prefix) {
-			this.assertSame('0=2&1=3&2=4&3=5', this.list.toQuery(), this.TEST18);
+		public.testToQuery = function(next) {
+			var list = [2, 3, 4, 5];
+			this.assertSame('0=2&1=3&2=4&3=5', eden('array').toQuery(list), this.TEST18);
+			
+			next();
 		};
 		
-		public.testToString = function() {
-			this.assertSame('[2,3,4,5]', this.list.toString(), this.TEST19);
+		public.testToString = function(next) {
+			var list = [2,3,4,5];
+			this.assertSame('[2,3,4,5]', eden('array').toString(list), this.TEST19);
+			
+			next();
 		};
 		
-		public.testValues = function() {
-			var values = this.list.values();
-			this.assertSame(3, values.get()[1], this.TEST20);
-			this.assertSame(4, values.size(), this.TEST21);
+		public.testValues = function(next) {
+			var list = [2, 3, 4, 5];
+			eden('array').values(list);
+			this.assertSame(4, eden('array').size(list), this.TEST21);
+			
+			next();
 		};
 		
+		public.testConcat = function(next) {
+			var list = [1,2,3,4], argument = [5, 6];
+			object  = eden('array').concat(list, argument);
+			this.assertSame('1,2,3,4,5,6', object, this.TEST22);
+			
+			next();
+		};
 		
-		public.testConcat = function() {
-			this.list.concat([1,2,3,4]);
-			this.assertCount(8,this.list.get(), this.TEST22);
+		public.testUnshift = function(next) {
+			var list = [1,2,3,4,5], newList = eden('array').unshift(list, 7, 6);
+			this.assertSame(6, newList.shift(), this.TEST23);
+			
+			next();
 		};
-
-		public.testUnshift = function() {
-			this.list.unshift([1,2,3,4,5]);
-			this.assertCount(9,this.list.get(), this.TEST23);
-		};
-
-		public.testSlice = function() {
-			var result = eden([1,2,3,4]).slice(2).get();
+		
+		public.testSlice = function(next) {
+			var list = [1,2,3,4], argument = 2,
+			result = eden('array').slice(list, argument);
 			this.assertSame('3,4', result, this.TEST24);
+			
+			next();
 		};
-
-		public.testSort = function() {
-			var result = eden(['a','c','b']).sort().get();
+		
+		public.testSplice = function(next) {
+			var list = [1,2,3,4], argument = (2, 3)
+			result = eden('array').splice(list, argument);
+			console.log("public.testSplice  ",result);
+			this.assertSame('4', result, this.TEST30);
+			
+			next();
+		};
+		
+		public.testSort = function(next) {
+			var list = ['c','b','a'], result = eden('array').sort(list);
 			this.assertSame('a,b,c', result, this.TEST25);
+			
+			next();
 		};
-
-		public.testImplode = function() {
-			var result = eden(['z','x','c']).implode('-').get();
+		
+		public.testImplode = function(next) {
+			var list = ['z','x','c'], delimeter = ('-')
+			result = eden('array').implode(list, delimeter);
 			this.assertSame('z-x-c', result, this.TEST26);
+			
+			next();
 		};
-
-		public.testPop = function() {
-			var result = eden([1,2,3,4]).pop();
+		
+		public.testPop = function(next) {
+			var list = [1, 2, 3, 4], result = eden('array').pop(list);
 			this.assertSame(4, result, this.TEST27);
+			
+			next();
 		};
-
-		public.testPush = function() {
-			var result = eden([1,2,3,4]).push('5,6').get();
+		
+		public.testPush = function(next) {
+			var list = [1, 2, 3, 4], argument = [5, 6],
+			result = eden('array').push(list, argument);
 			this.assertSame('1,2,3,4,5,6', result, this.TEST28);
+			
+			next();
+		};
+		
+		public.testReverse = function(next) {
+			var list = ['a','b','c'], result = eden('array').reverse(list);
+			this.assertSame('c,b,a', result, this.TEST29);
+			
+			next();
 		};
 
 
