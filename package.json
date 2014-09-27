@@ -1,7 +1,7 @@
 {
   "name": "edenjs",
   "description": "Eden Node JS Library",
-  "version": "0.0.5",
+  "version": "0.0.12",
   "author": {
     "name": "Christian Blanquera",
     "email": "cblanquera@openovate.com"
@@ -11,22 +11,31 @@
     "eden"
   ],
   "dependencies": {
-    "formidable": "1.0.15",
-    "socket.io": "1.0.6",
-    "readable-stream": "1.0.27-1"
+    "eden-array": "0.0.12",
+    "eden-class": "0.0.12",
+    "eden-collection": "0.0.12",
+    "eden-document": "0.0.12",
+    "eden-file": "0.0.12",
+    "eden-folder": "0.0.12",
+    "eden-hash": "0.0.12",
+    "eden-model": "0.0.12",
+    "eden-mongo": "0.0.12",
+    "eden-mysql": "0.0.12",
+    "eden-number": "0.0.12",
+    "eden-oauth": "0.0.12",
+    "eden-oauth2": "0.0.12",
+    "eden-postgres": "0.0.12",
+    "eden-rest": "0.0.12",
+    "eden-sqlite": "0.0.12",
+    "eden-string": "0.0.12",
+    "eden-time": "0.0.12"
   },
-  "main": "./lib/index.js",
+  "main": "./eden.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Openovate/edenjs.git"
   },
   "scripts": {
-    "test": "mocha --require should --reporter spec"
-  },
-  "_id": "edenjs@0.0.2",
-  "dist": {
-    "shasum": "670e73d348d0ec380ed343488fe83c71986fd2c6"
-  },
-  "_from": "edenjs@",
-  "_resolved": "https://registry.npmjs.org/edenjs/-/edenjs-0.0.2.tgz"
+    "test": "mocha"
+  }
 }
