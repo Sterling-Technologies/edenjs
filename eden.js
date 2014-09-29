@@ -67,7 +67,17 @@ var eden = module.exports = require('eden-class').extend(function() {
 		
 		var args = this.args();
 		
-		return require('eden-'+args.shift()).apply(null, args);
+		return this.get(args.shift()).apply(null, args);
+	};
+	
+	/**
+	 * Returns the classified definition
+	 *
+	 * @param string
+	 * @return function
+	 */
+	this.get = function(name) {
+		return require('eden-'+name);
 	};
 	
 	/* Protected.Methods
