@@ -1,7 +1,7 @@
 {
   "name": "edenjs",
   "description": "Eden Node JS Library",
-  "version": "0.0.17",
+  "version": "0.0.20",
   "author": {
     "name": "Christian Blanquera",
     "email": "cblanquera@openovate.com"
@@ -11,25 +11,25 @@
     "eden"
   ],
   "dependencies": {
-    "eden-array": "0.0.17",
-    "eden-class": "0.0.17",
-    "eden-collection": "0.0.17",
-    "eden-document": "0.0.17",
-    "eden-file": "0.0.17",
-    "eden-folder": "0.0.17",
-    "eden-hash": "0.0.17",
-    "eden-http": "0.0.17",
-    "eden-model": "0.0.17",
-    "eden-mongo": "0.0.17",
-    "eden-mysql": "0.0.17",
-    "eden-number": "0.0.17",
-    "eden-oauth": "0.0.17",
-    "eden-oauth2": "0.0.17",
-    "eden-postgres": "0.0.17",
-    "eden-rest": "0.0.17",
-    "eden-sqlite": "0.0.17",
-    "eden-string": "0.0.17",
-    "eden-time": "0.0.17"
+    "eden-array": "0.0.20",
+    "eden-class": "0.0.20",
+    "eden-collection": "0.0.20",
+    "eden-document": "0.0.20",
+    "eden-file": "0.0.20",
+    "eden-folder": "0.0.20",
+    "eden-hash": "0.0.20",
+    "eden-http": "0.0.20",
+    "eden-model": "0.0.20",
+    "eden-mongo": "0.0.20",
+    "eden-mysql": "0.0.20",
+    "eden-number": "0.0.20",
+    "eden-oauth": "0.0.20",
+    "eden-oauth2": "0.0.20",
+    "eden-postgres": "0.0.20",
+    "eden-rest": "0.0.20",
+    "eden-sqlite": "0.0.20",
+    "eden-string": "0.0.20",
+    "eden-time": "0.0.20"
   },
   "main": "./eden.js",
   "repository": {
